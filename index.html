@@ -1,200 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Ei Chit Chit Po | Data Analyst Portfolio</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-      .fade-in {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-      }
-      .fade-in.visible {
-        opacity: 1;
-        transform: none;
-      }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s ease-out;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .project-card { transition: all 0.3s ease; border-radius: 24px; background: white; border: 1px solid #f1f5f9; overflow: hidden; display: flex; flex-direction: column; }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(79, 70, 229, 0.08); }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .dot {
+            height: 5px; width: 5px; background-color: #cbd5e1; border-radius: 50%;
+            display: inline-block; transition: all 0.3s ease; margin: 0 2px;
+        }
+        .dot.active { background-color: #4f46e5; width: 14px; border-radius: 3px; }
+
+        .text-gradient {
+            background: linear-gradient(to right, #4f46e5, #9333ea);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
     </style>
-  </head>
-  <body class="bg-gradient-to-br from-[#f9f9f9] to-[#e2f0ff] text-gray-800">
-    <header class="bg-white shadow-md sticky top-0 z-50">
-      <div
-        class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <h1 class="text-xl font-bold text-black-600">Data Analyst Portfolio</h1>
-        <nav class="space-x-4 text-sm">
-          <a href="#projects" class="hover:text-indigo-600">Projects</a>
-          <a href="#contact" class="hover:text-indigo-600">Contact</a>
+</head>
+<body class="bg-[#fcfcfd] text-gray-900 leading-relaxed">
+
+    <div id="imageModal" class="hidden fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 cursor-zoom-out" onclick="this.classList.add('hidden')">
+        <img id="modalImg" src="" class="max-w-full max-h-full rounded shadow-2xl">
+    </div>
+
+    <header class="fixed top-0 w-full z-50 px-6 py-4">
+        <nav class="max-w-5xl mx-auto glass rounded-2xl px-6 py-3 flex justify-between items-center shadow-sm">
+            <h1 class="font-bold tracking-tighter text-lg underline decoration-indigo-500 decoration-2">ECCP<span class="text-indigo-600">.</span></h1>
+            <div class="space-x-6 text-sm font-medium text-gray-600">
+                <a href="#projects" class="hover:text-indigo-600 transition">Portfolio</a>
+                <a href="#contact" class="hover:text-indigo-600 transition">Contact</a>
+            </div>
         </nav>
-      </div>
     </header>
 
-    <section class="text-center py-16 px-6">
-      <h2 class="text-4xl font-bold mb-4">Ei Chit Chit Po</h2>
-      <p class="max-w-xl mx-auto text-gray-600">
-        I turn raw data into meaningful insights through dashboards, SQL
-        queries, and data cleaning. Welcome to my portfolio.
-      </p>
+    <section class="pt-44 pb-16 px-6 text-center">
+        <div class="reveal">
+            <h2 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-gray-900">
+                Turning Data into <span class="text-gradient">Insights</span>
+            </h2>
+            <p class="max-w-xl mx-auto text-lg text-gray-500 font-light mb-8">
+                Data Analyst specialized in <strong>SQL, Power BI, and Python</strong>. 
+                Based in Dubai, transforming raw data into visual business intelligence.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#projects" class="bg-gray-900 text-white px-8 py-3 rounded-full font-medium hover:bg-black transition shadow-lg">View Projects</a>
+                <a href="https://www.linkedin.com/in/eichit-analyst/" target="_blank" class="bg-white border border-gray-200 px-8 py-3 rounded-full font-medium hover:bg-gray-50 transition">LinkedIn</a>
+            </div>
+        </div>
     </section>
 
-    <hr class="my-12 border-t border-gray-400 opacity-50 w-11/12 mx-auto">
+    <section id="projects" class="py-12 px-6 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            
+            <div class="project-card reveal group">
+                <div class="relative h-52 overflow-hidden">
+                    <div id="gallery-sales-sql" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth">
+                        <img src="sql_automation.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in" alt="Trigger Logic">
+                        <img src="sql_view_result.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in" alt="View Results">
+                        <img src="ER_diagram_sales_analysis.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in" alt="ER Diagram">
+                    </div>
+                    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1 pointer-events-none">
+                        <span class="dot active" id="dot-sales-sql-0"></span>
+                        <span class="dot" id="dot-sales-sql-1"></span>
+                        <span class="dot" id="dot-sales-sql-2"></span>
+                    </div>
+                </div>
+                <div class="p-6 flex-grow">
+                    <span class="text-[10px] font-bold text-orange-600 uppercase tracking-widest">SQL • Database Engineering</span>
+                    <h4 class="font-bold text-xl mt-1 mb-2">Retail Sales Database</h4>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">Multi-table relational system using Triggers for automation and Views for simplified reporting.</p>
+                </div>
+                <div class="p-6 pt-0 border-t border-gray-50 mt-auto">
+                    <a href="https://github.com/EiCHit/sale_analyst" target="_blank" class="text-xs font-bold text-indigo-600">EXPLORE CODE →</a>
+                </div>
+            </div>
 
+            <div class="project-card reveal">
+                <div class="relative h-52 overflow-hidden">
+                    <div id="gallery-churn" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth">
+                        <img src="churn_vs_nonchurn_customers.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                        <img src="destribution_of_annual_electricity_comsumption.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                        <img src="gas_servise_vs_churn.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
 
-    <section id="projects" class="py-16 px-6">
-      <h3 class="text-3xl font-semibold text-center mb-10">Projects</h3>
-      <div
-        class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"
-      >
-        <a href="https://github.com/EiCHit/Data_Cleaning" target="_blank" class="block hover:scale-105 transition-transform duration-200">
-        <div
-          class="bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-md p-6 hover:shadow-lg transition transform hover:scale-105 fade-in"
-        >
-          <h4 class="font-semibold text-lg mb-2">Customer Call List Data Cleaning(Python) | 2025</h4>
-          <p class="text-sm text-gray-600">
-            Cleaned customer data using Python, pandas, numpy, and regex. Tasks
-            included removing duplicates, standardizing phone numbers, and
-            filtering 'Do Not Contact' entries.
-          </p>
+                    </div>
+                    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1 pointer-events-none">
+                        <span class="dot active" id="dot-churn-0"></span>
+                        <span class="dot" id="dot-churn-1"></span>
+                        <span class="dot" id="dot-churn-2"></span>
+                    </div>
+                </div>
+                <div class="p-6 flex-grow">
+                    <span class="text-[10px] font-bold text-teal-600 uppercase tracking-widest">BCG X • Predictive Analytics</span>
+                    <h4 class="font-bold text-xl mt-1 mb-2">Energy Churn Prediction</h4>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">Analyzing price sensitivity and predicting customer churn for SME clients using Random Forest.</p>
+                </div>
+                <div class="p-6 pt-0 border-t border-gray-50 mt-auto">
+                    <a href="https://github.com/EiCHit/Energy-Churn-Prediction-BCGx---Forage-/" target="_blank" class="text-xs font-bold text-indigo-600">VIEW CASE STUDY →</a>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="relative h-52 overflow-hidden">
+                    <div id="gallery-financial" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth">
+                        <img src="financial_mainpage.PNG" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                        <img src="financial_detailpage.PNG" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                    </div>
+                    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1 pointer-events-none">
+                        <span class="dot active" id="dot-financial-0"></span>
+                        <span class="dot" id="dot-financial-1"></span>
+                    </div>
+                </div>
+                <div class="p-6 flex-grow">
+                    <span class="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">Power BI • Finance</span>
+                    <h4 class="font-bold text-xl mt-1 mb-2">Global Financial Performance</h4>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">Interactive tracking of Income, Expenses, and Profit across global segments.</p>
+                </div>
+                <div class="p-6 pt-0 border-t border-gray-50 mt-auto">
+                    <a href="https://github.com/EiCHit/Global-Financial-Performance-Dashboard" target="_blank" class="text-xs font-bold text-indigo-600">GITHUB REPO →</a>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="relative h-52 overflow-hidden">
+                    <div id="gallery-attrition" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth">
+                        <img src="Attrition_By_Overtime.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                        <img src="Monthly_Income_VS_Attrition.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                        <img src="Attrition_By_Department.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                    </div>
+                    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1 pointer-events-none">
+                        <span class="dot active" id="dot-attrition-0"></span>
+                        <span class="dot" id="dot-attrition-1"></span>
+                        <span class="dot" id="dot-attrition-2"></span>
+                    </div>
+                </div>
+                <div class="p-6 flex-grow">
+                    <span class="text-[10px] font-bold text-purple-500 uppercase tracking-widest">Python • Seaborn</span>
+                    <h4 class="font-bold text-xl mt-1 mb-2">HR Attrition Analysis</h4>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">Identifying key employee turnover drivers like overtime and income parity.</p>
+                </div>
+                <div class="p-6 pt-0 border-t border-gray-50 mt-auto">
+                    <a href="https://github.com/EiCHit/Employee-Attrition-Analysis-with-Python" target="_blank" class="text-xs font-bold text-indigo-600">GITHUB REPO →</a>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="relative h-52 overflow-hidden">
+                    <div id="gallery-medical" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth">
+                        <img src="Medical_Charges_By_BMI_Category.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                        <img src="non_smoker_vs_somker.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                    </div>
+                    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1 pointer-events-none">
+                        <span class="dot active" id="dot-medical-0"></span>
+                        <span class="dot" id="dot-medical-1"></span>
+                    </div>
+                </div>
+                <div class="p-6 flex-grow">
+                    <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest">SQL • Healthcare</span>
+                    <h4 class="font-bold text-xl mt-1 mb-2">Medical Cost Analysis</h4>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">Using SQL for feature extraction and Power BI to visualize lifestyle cost impacts.</p>
+                </div>
+                <div class="p-6 pt-0 border-t border-gray-50 mt-auto">
+                    <a href="https://github.com/EiCHit/Medical-Cost-Analysis-Using-SQL" target="_blank" class="text-xs font-bold text-indigo-600">VIEW WORK →</a>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+    <div class="relative h-52 overflow-hidden">
+        <div id="gallery-world" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth">
+            <img src="EDA.PNG" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+            <img src="EDA_group_by.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+            <img src="EDA_plot.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
         </div>
-        </a>
-
-        <a href="https://github.com/EiCHit/Medical-Cost-Analysis-Using-SQL" target="_blank" class="block hover:scale-105 transition-transform duration-200">
-        <div
-          class="bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-md p-6 hover:shadow-lg transition transform hover:scale-105 fade-in"
-        >
-          <h4 class="font-semibold text-lg mb-2">Data Analysis on Medical Costs(SQL) | 2025</h4>
-          <p class="text-sm text-gray-600">
-            Analyzed healthcare costs by BMI, region, and smoking status using
-            MySQL. Cleaned and queried data to identify cost trends linked to
-            smoking and obesity.
-          </p>
-        </div>
-        </a>
-
-        <a href="https://github.com/EiCHit/Global-Financial-Performance-Dashboard" target="_blank" class="block hover:scale-105 transition-transform duration-200">
-        <div
-          class="bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-md p-6 hover:shadow-lg transition transform hover:scale-105 fade-in"
-        >
-          <h4 class="font-semibold text-lg mb-2">Global Financial Performance Dashboard(Power BI) | 2025</h4>
-          <p class="text-sm text-gray-600">
-            Dynamic Power BI dashboard showing KPIs like income, expenses, and
-            profit. Filters by date for quick insights.
-          </p>
-        </div>
-        </a>
         
-        <a href="https://github.com/EiCHit/Retail-Sales-Performance-Dashboard" target="_blank" class="block hover:scale-105 transition-transform duration-200">
-        <div
-          class="bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-md p-6 hover:shadow-lg transition transform hover:scale-105 fade-in"
-        >
-          <h4 class="font-semibold text-lg mb-2">Retail Sales Performance Dashboard(Power BI) | 2025</h4>
-          <p class="text-sm text-gray-600">
-            Built a Power BI dashboard analyzing sales by region and category
-            using DAX to display KPIs and trends.
-          </p>
+        <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1 pointer-events-none">
+            <span class="dot active" id="dot-world-0"></span>
+            <span class="dot" id="dot-world-1"></span>
+            <span class="dot" id="dot-world-2"></span>
         </div>
-        </a>
+    </div>
+    
+    <div class="p-6 flex-grow">
+        <span class="text-[10px] font-bold text-rose-500 uppercase tracking-widest">Python • Pandas</span>
+        <h4 class="font-bold text-xl mt-1 mb-2">World Data Exploratory</h4>
+        <p class="text-sm text-gray-500 mb-4 leading-relaxed">Cleaning and optimizing global development indicators for statistical correlation.</p>
+    </div>
+    <div class="p-6 pt-0 border-t border-gray-50 mt-auto">
+        <a href="https://github.com/EiCHit/World-Data-Exploratory---Python---Panda/" target="_blank" class="text-xs font-bold text-indigo-600">GITHUB REPO →</a>
+    </div>
+</div>
 
-        <a href="https://github.com/EiCHit/sale_analyst" target="_blank" class="block hover:scale-105 transition-transform duration-200">
-        <div
-          class="bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-md p-6 hover:shadow-lg transition transform hover:scale-105 fade-in"
-        >
-          <h4 class="font-semibold text-lg mb-2">Sales Tracking Database(SQL) | 2025</h4>
-          <p class="text-sm text-gray-600">
-            Designed a SQL database with views and triggers to track
-            performance, top products, and monthly revenue.
-          </p>
+            <div class="project-card reveal">
+                <div class="relative h-52 overflow-hidden">
+                    <div id="gallery-tata" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth">
+                        <img src="Monthly_Revenue_Trend(2011).jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                        <img src="Demand_By_Country(Excluding_UK).jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                        <img src="T10_Countries_By_Revenue&_Quantity.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                        <img src="T10_Customers_By_Revenue.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                    </div>
+                    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1 pointer-events-none">
+                        <span class="dot active" id="dot-tata-0"></span>
+                        <span class="dot" id="dot-tata-1"></span>
+                        <span class="dot" id="dot-tata-2"></span>
+                        <span class="dot" id="dot-tata-3"></span>
+                    </div>
+                </div>
+                <div class="p-6 flex-grow">
+                    <span class="text-[10px] font-bold text-yellow-600 uppercase tracking-widest">Tata Retail • Visual Analytics</span>
+                    <h4 class="font-bold text-xl mt-1 mb-2">Strategic Retail Dashboards</h4>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">Executive-level visualizations providing strategic insights for retail scenarios.</p>
+                </div>
+                <div class="p-6 pt-0 border-t border-gray-50 mt-auto">
+                    <a href="https://github.com/EiCHit/Online-Retail-Dashboard" target="_blank" class="text-xs font-bold text-indigo-600">GITHUB REPO →</a>
+                </div>
+            </div>
+
+            <div class="project-card reveal group">
+                <div class="relative h-52 overflow-hidden">
+                    <div id="gallery-bike" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth">
+                        <img src="Bike_sale_Dashboard.jpg" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                        <img src="bike_sale.PNG" onclick="openModal(this.src)" class="snap-center shrink-0 w-full h-full object-cover cursor-zoom-in">
+                    </div>
+                    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1 pointer-events-none">
+                        <span class="dot active" id="dot-bike-0"></span>
+                        <span class="dot" id="dot-bike-1"></span>
+                    </div>
+                </div>
+                <div class="p-6 flex-grow">
+                    <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Excel • Pivot Tables</span>
+                    <h4 class="font-bold text-xl mt-1 mb-2">Customer Purchase Behavior</h4>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">Full lifecycle project: Data cleaning, Nested IF logic, and Pivot Dashboards.</p>
+                </div>
+                <div class="p-6 pt-0 border-t border-gray-50 mt-auto">
+                    <a href="https://github.com/EiCHit/Bike-Sales-Excel-Project" target="_blank" class="text-xs font-bold text-indigo-600">GITHUB REPO →</a>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="h-52 bg-indigo-50 overflow-hidden">
+                    <img src="retail_sales_dashboard.jpeg" onclick="openModal(this.src)" class="w-full h-full object-cover cursor-zoom-in">
+                </div>
+                <div class="p-6 flex-grow">
+                    <span class="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">Power BI • DAX</span>
+                    <h4 class="font-bold text-xl mt-1 mb-2">Regional Sales Analytics</h4>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">Tracking regional KPIs and growth metrics using advanced DAX functions.</p>
+                </div>
+                <div class="p-6 pt-0 border-t border-gray-50 mt-auto">
+                    <a href="https://github.com/EiCHit/Retail-Sales-Performance-Dashboard" target="_blank" class="text-xs font-bold text-indigo-600">GITHUB REPO →</a>
+                </div>
+              </div>
+
         </div>
-        </a>
-
-        
-
-        <a href="https://github.com/EiCHit/Bike-Sales-Excel-Project" target="_blank" class="block hover:scale-105 transition-transform duration-200">
-        <div
-          class="bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-md p-6 hover:shadow-lg transition transform hover:scale-105 fade-in"
-        >
-          <h4 class="font-semibold text-lg mb-2">Excel Bikes Sales Project(Excel) | 2025</h4>
-          <p class="text-sm text-gray-600">
-            Created Excel dashboard with pivot tables, nested IFs, and dynamic
-            charts for bike sales performance analysis.
-          </p>
-        </div>
-        </a>
-
-        <a href="https://github.com/EiCHit/Online-Retail-Dashboard" target="_blank" class="block hover:scale-105 transition-transform duration-200">
-        <div
-          class="bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-md p-6 hover:shadow-lg transition transform hover:scale-105 fade-in"
-        >
-          <h4 class="font-semibold text-lg mb-2">Online Retail Dashboard(Power BI) - Tata Group | 2025</h4>
-          <p class="text-sm text-gray-600">
-            Built retail dashboards using Excel and Power BI to answer business
-            questions and present insights. (Forage Internship)
-          </p>
-        </div>
-        </a>
-
-        <a href="https://github.com/EiCHit/Employee-Attrition-Analysis-with-Python" target="_blank" class="block hover:scale-105 transition-transform duration-200">
-        <div
-          class="bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-md p-6 hover:shadow-lg transition transform hover:scale-105 fade-in"
-        >
-          <h4 class="font-semibold text-lg mb-2">Employee Attrition Analysis(Python) | 2025</h4>
-          <p class="text-sm text-gray-600">
-            Analyzed employee attrition using Python to explore key patterns and visualize HR insights.
-          </p>
-        </div>
-        </a>
-
-      </div>
     </section>
 
-   <hr class="my-12 border-t border-gray-400 opacity-50 w-11/12 mx-auto">
-
-
-    <section id="contact" class="py-16 px-6 text-center">
-      <h3 class="text-3xl font-semibold mb-6">Contact</h3>
-      <p>
-        Email:
-        <a href="mailto:eichitpo2004@gmail.com" class="text-indigo-600 underline"
-          >eichitpo2004@gmail.com</a
-        >
-      </p>
-      <p>Location: Chiang Rai, Thailand</p>
-      <div class="flex justify-center mt-4 space-x-4">
-        <a href="https://www.linkedin.com/in/eichit-analyst/" class="hover:text-indigo-600">LinkedIn</a>
-        <a href="https://github.com/EiCHit" class="hover:text-indigo-600">GitHub</a>
-        <a href="#top" class="hover:text-indigo-600">Back to Top ↑</a>
-      </div>
-    </section>
-
-    <footer class="text-center py-6 text-xs text-gray-500 border-t">
-      <p>Diploma in Business Management & Administration · IBS of Scandinavia · 2023</p>
-      <p>© 2025 Ei Chit Chit Po · Built with ❤️ using Tailwind CSS</p>
+    <footer id="contact" class="py-24 text-center border-t border-gray-100 mt-20 bg-white">
+        <div class="reveal">
+            <h3 class="text-4xl font-extrabold mb-6 tracking-tight text-gray-900">Let's Connect</h3>
+            <p class="text-gray-500 mb-12 text-lg font-light">Dubai, UAE · International City</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4 mb-16">
+                <a href="mailto:eichitpo2004@gmail.com" class="px-10 py-4 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition shadow-xl">eichitpo2004@gmail.com</a>
+                <a href="https://www.linkedin.com/in/eichit-analyst/" target="_blank" class="px-10 py-4 border border-gray-200 rounded-2xl font-bold hover:bg-gray-50 transition">LinkedIn Profile</a>
+            </div>
+            <p class="text-[10px] text-gray-400 uppercase tracking-[0.3em]">Diploma in Business Management · Portfolio 2026</p>
+        </div>
     </footer>
 
     <script>
-      // Scroll animations for fade-in effect
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      });
+        // Scroll Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), index * 100);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-      document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+        // Modal Zoom
+        function openModal(src) {
+            document.getElementById('modalImg').src = src;
+            document.getElementById('imageModal').classList.remove('hidden');
+        }
+
+        // Gallery Slider
+        function setupGallery(id, count) {
+            const gallery = document.getElementById(`gallery-${id}`);
+            if (!gallery) return;
+            let current = 0;
+            let paused = false;
+            
+            gallery.addEventListener('mouseenter', () => paused = true);
+            gallery.addEventListener('mouseleave', () => paused = false);
+
+            setInterval(() => {
+                if (paused) return;
+                current = (current + 1) % count;
+                gallery.scrollTo({ left: gallery.offsetWidth * current, behavior: 'smooth' });
+                
+                for (let i = 0; i < count; i++) {
+                    const dot = document.getElementById(`dot-${id}-${i}`);
+                    if (dot) dot.classList.toggle('active', i === current);
+                }
+            }, 3500);
+        }
+
+        window.onload = () => {
+            setupGallery('sales-sql', 3);
+            setupGallery('churn', 2);
+            setupGallery('financial', 2);
+            setupGallery('attrition', 3);
+            setupGallery('medical', 2);
+            setupGallery('tata', 4);
+            setupGallery('bike', 2);
+            setupGallery('world', 3);
+        };
     </script>
-  </body>
+</body>
 </html>
-
-
-
-
-
